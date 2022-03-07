@@ -1,0 +1,34 @@
+# The manifest for the "api" service.
+
+name: api
+
+type: Load Balanced Web Service
+
+image:
+  image:
+  build:
+    dockerfile: api/Dockerfile
+    cache_from:
+      - 934728862088.dkr.ecr.eu-west-3.amazonaws.com/vdmescape/api:latest
+  port: 8080
+
+
+http:
+  path: '/'
+  healthcheck: '/healthcheck'
+
+
+environments:
+  production:
+    cpu: 256
+    memory: 512
+    count:
+      range: 1-5
+      cpu_percentage: 60
+      memory_percentage: 70
+      response_time: 2s
+    secrets:
+      DB_USER: DB_USER
+      DB_HOST: DB_HOST
+      DB_PORT: DB_PORT
+      DB_PASSWORD: DB_PASSWORD

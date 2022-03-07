@@ -1,0 +1,72 @@
+version: "3.8"
+
+services:
+
+    database:        
+        image: mysql:8.0.3
+        restart: always
+        environment:
+            MYSQL_ROOT_PASSWORD: $DB_PASSWORD
+            MYSQL_DATABASE: $DB_NAME
+        ports:
+            - 3306:3306
+        volumes:
+            - ./db/db_data:/var/lib/mysql
+            - ./db/mysql-dump:/docker-entrypoint-initdb.d
+
+    adminer:
+        image: adminer:4.7.6
+        restart: always
+        ports:
+            - 8081:8080
+
+    api:
+        build: ./api
+        restart: always
+        environment:
+            DB_PASSWORD: $DB_PASSWORD
+            DB_USER: $DB_USER
+            DB_PORT: $DB_PORT
+            DB_HOST: $DB_HOST
+            DB_NAME: $DB_NAME
+            MODE: $MODE
+        volumes:
+            - ./api:/usr/app/
+            - ./api/node_modules:/usr/app/node_modules
+        ports:
+            - 8080:8080
+
+    db_init:
+        build: ./db/db_filler
+        restart: always
+        environment:
+            DB_PASSWORD: $DB_PASSWORD
+            DB_USER: $DB_USER
+            DB_PORT: $DB_PORT
+            DB_HOST: $DB_HOST
+            DB_NAME: $DB_NAME
+            MODE: $MODE
+    
+    db_filler:
+        build: ./reservation
+        restart: always
+        environment:
+            API_URL: $API_URL
+            API_PORT: $API_PORT
+
+    front:
+        build:
+            context: ./front
+            dockerfile: Dockerfile
+        restart: always
+        volumes:
+            - ./front:/usr/app/
+            - ./front/node_modules:/usr/app/node_modules
+
+        environment:
+            MODE: $MODE
+        ports:
+            - 3000:3000
+
+volumes:
+    dbdata:

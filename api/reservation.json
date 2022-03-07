@@ -1,0 +1,35 @@
+{
+   "Acheteur":{
+      "Civilite":"Monsieur",
+      "Nom":"cece",
+      "Prenom":"Art",
+      "Age":64,
+      "Email":"carmine.art@gogle.com"
+   },
+   "Game":{
+      "Nom":"Mariage sans alcool",
+      "Jour":"2018-09-07",
+      "Horaire":"08:00",
+      "VR":"Oui"
+   },
+   "Reservation":[
+      {
+         "Spectateur":{
+            "Civilite":"Monsieur",
+            "Nom":"cece",
+            "Prenom":"Art",
+            "Age":64
+         },
+         "Tarif":"Tarif etudiant"
+      },
+      {
+         "Spectateur":{
+            "Civilite":"Monsieur",
+            "Nom":"Nya",
+            "Prenom":"Kayla",
+            "Age":22
+         },
+         "Tarif":"Plein tarif"
+      }
+   ]
+}
