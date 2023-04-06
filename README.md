@@ -36,7 +36,4 @@ Original project: https://gitlab.com/verovec/tic-abd4
       git tag [version]
       git push --tags
       
-|  Service       |  URL                                 |
-|----------------|--------------------------------------|
-|front           | http://d2drq8pkte1u6n.cloudfront.net |
-|api             | http://d38wiu8dqsk44.cloudfront.net  |
+
